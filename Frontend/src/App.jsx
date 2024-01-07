@@ -1,11 +1,15 @@
 import React from 'react'
-import {Router,Routes,Route} from "react-router-dom";
-import Home from "./screens/home"
+import { Outlet } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Header from './components/Header';
 function App() {
   return (
-      <Routes>
-        <Route path="/" element={<Home/>} />
-      </Routes>
+    <>
+        <Header/>
+        <Container className='my-2'>
+        <Outlet/> 
+        </Container>
+    </>
   )
 }
 
