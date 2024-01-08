@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
@@ -16,16 +17,24 @@ app.use(
     extended: true,
   })
 );
-app.use(cookieParser())
+app.use(cookieParser());
 
 const port = process.env.PORT || 5000;
 
 //middleware
 app.use("/api/user", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Server is ready");
-});
+if (process.env.NODE_ENV === "production") {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, "/Frontend/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "Frontend", "dist", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Server is ready");
+  });
+}
 
 app.use(errorHandler);
 app.use(notFound);
