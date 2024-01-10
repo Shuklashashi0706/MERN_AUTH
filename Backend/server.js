@@ -5,11 +5,19 @@ import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import connectDb from "./config/db.js";
+import cors from "cors";
 dotenv.config({ path: "./.env" });
 
 const app = express();
 //Database connection
 connectDb();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173" || "https://mern-auth-nu.vercel.app",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(
