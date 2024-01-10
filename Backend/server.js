@@ -14,7 +14,7 @@ connectDb();
 
 app.use(
   cors({
-    origin: "http://localhost:5173" || "https://mern-auth-nu.vercel.app",
+    origin: "http://localhost:5173" || "https://mern-auth-flax-tau.vercel.app",
     credentials: true,
   })
 );
